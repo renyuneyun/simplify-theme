@@ -197,7 +197,7 @@
                         Archives
                     </a>
                 </li>
-                <li class="nav-item {% if page and 'about' in page.title|lower %} active {% endif %}">
+                <li class="nav-item {% if page and 'about' == page.slug|lower %} active {% endif %}">
                     <a class="nav-link" href="{{ SITEURL }}/pages/about.html">
                         <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="12" height="12" viewBox="0 0 24 24">
                             <path d="M20.822 18.096c-3.439-.794-6.64-1.49-5.09-4.418 4.72-8.912 1.251-13.678-3.732-13.678-5.082 0-8.464 4.949-3.732 13.678 1.597 2.945-1.725 3.641-5.09 4.418-3.073.71-3.188 2.236-3.178 4.904l.004 1h23.99l.004-.969c.012-2.688-.092-4.222-3.176-4.935z" fill="currentColor"></path>
@@ -206,6 +206,33 @@
                     </a>
                 </li>
             </ul>
+
+            {% if DISPLAY_PAGES_ON_MENU != False or MENUITEMS %}
+            <ul class="navbar-nav mr-auto text-center">
+                {% if DISPLAY_PAGES_ON_MENU %}
+                {% for pg in pages %}
+                {% if pg.slug != 'about' %}
+                <li class="nav-item {% if page and pg.slug == page.slug|lower %} active {% endif %}">
+                    <a class="nav-link"
+                       href="{{ SITEURL }}/{{ pg.url }}" itemprop="url"
+                       rel="bookmark">
+                        {{ pg.title }}
+                    </a>
+                </li>
+                {% endif %}
+                {% endfor %}
+                {% endif %}
+                {% for title, url in MENUITEMS %}
+                <li class="nav-item {% if article and article.url|lower == url|lower %} active {% endif %}">
+                    <a class="nav-link"
+                       href="{{ SITEURL }}/{{ url }}" itemprop="url"
+                       rel="bookmark">
+                        {{ title }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
 
             {% if page_name != 'search' %}
             <!-- Search form -->
@@ -216,6 +243,7 @@
 
             <!-- Social links -->
             <ul class="navbar-nav text-center">
+                {% if SOCIAL.facebook is defined %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ SOCIAL.facebook }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -224,6 +252,8 @@
                         </svg>
                     </a>
                 </li>
+                {% endif %}
+                {% if SOCIAL.github is defined %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ SOCIAL.github }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -232,6 +262,8 @@
                         </svg>
                     </a>
                 </li>
+                {% endif %}
+                {% if SOCIAL.linkedin is defined %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ SOCIAL.linkedin }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -240,6 +272,8 @@
                         </svg>
                     </a>
                 </li>
+                {% endif %}
+                {% if SOCIAL.twitter is defined %}
                 <li class="nav-item">
                     <a class="nav-link" href="{{ SOCIAL.twitter }}">
                         <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
@@ -248,6 +282,7 @@
                         </svg>
                     </a>
                 </li>
+                {% endif %}
             </ul>
         </div>
     </nav>
