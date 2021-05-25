@@ -166,6 +166,7 @@
 
             <!-- i18n subsites -->
             {% if extra_siteurls %}
+            {% set langname = dict(zh='漢字', zhs="汉字", en='English') %}
             <div class="dropdown">
                 <button type="button" class="btn dropdown-toggle" data-toggle="dropdown">
                     <svg class="nav-icon" xmlns="http://www.w3.org/2000/svg" width="1em" height="1em" viewBox="0 0 24 24">
@@ -174,7 +175,7 @@
                 </button>
                 <div class="dropdown-menu">
                     {% for lang, url in lang_siteurls.items() %}
-                    <a class="dropdown-item {% if lang == DEFAULT_LANG %}active{% endif %}" href="{{ url }}/">{{ lang }}</a>
+                    <a class="dropdown-item {% if lang == DEFAULT_LANG %}active{% endif %}" href="{{ url }}/">{{ langname[lang] }}</a>
                     {% endfor %}
                 </div>
             </div>
