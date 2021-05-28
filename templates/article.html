@@ -46,7 +46,7 @@
 
 {% block content %}
     <!-- 2 columns layout -->
-    {% if article.toc == 'show' %}
+    {% if article.toc %}
         <div class="row">
             <div class="col-xs-12 col-sm-12 col-md-10">
                 {% block add_this %}
@@ -90,8 +90,12 @@
             <!-- Sidebar -->
             <div class="col-md-2 d-none d-md-block small">
                 <div class="sticky-top">
+                    {% if article.toc %}
                     <!-- ToC -->
-                    <nav id="toc" data-toggle="toc" ></nav>
+                    <nav class="toc" id="toc" data-toggle="toc" >
+                        {{ article.toc }}
+                    </nav>
+                    {% endif %}
 
                     <!-- Share post -->
                     {% if SHARE_POST and article.share_post and article.status != 'draft' %}
